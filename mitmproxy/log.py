@@ -48,12 +48,13 @@ class MitmFormatter(logging.Formatter):
 
     default_time_format = "%H:%M:%S"
     default_msec_format = "%s.%03d"
+    empty_exc_info = (None,None,None)
 
     def format(self, record: logging.LogRecord) -> str:
         time = self.formatTime(record)
         message = record.getMessage()
         if record.exc_info:
-            message = f"{message}\n{self.formatException(record.exc_info)}"
+            message = f"{message}\n{self.formatException(record.exc_info) if record.exc_info != (None,None,None) else ''}"
         if self.colorize:
             message = miniclick.style(
                 message,
