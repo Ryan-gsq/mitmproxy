@@ -7,6 +7,42 @@
 
 ## Unreleased: mitmproxy next
 
+- fix: update log message with correct header name
+  ([#7802](https://github.com/mitmproxy/mitmproxy/pull/7802), @kristof-mattei)
+- Update deprecated `windows-2019` runner to `windows-2025`.
+  ([#7801](https://github.com/mitmproxy/mitmproxy/pull/7801), @chedieck)
+- Do not escape non-ascii characters in the JSON contentview.
+  ([#7740](https://github.com/mitmproxy/mitmproxy/pull/7740), @mhils)
+- Fix crash in mitmweb when no explicit Server-Connection is logged.
+  ([#7734](https://github.com/mitmproxy/mitmproxy/pull/7734), @lups2000)
+- Add syntax highlighting for CSS and JavaScript contentviews.
+  ([#7749](https://github.com/mitmproxy/mitmproxy/pull/7749), @mhils)
+
+## 25 May 2025: mitmproxy 12.1.1
+
+- Fix a race condition when updating the flow list in mitmweb.
+  ([#7729](https://github.com/mitmproxy/mitmproxy/pull/7729), @mhils)
+
+## 24 May 2025: mitmproxy 12.1.0
+
+- mitmweb now supports filtering by body contents (~b, ~bq, ~bs).
+  ([#7704](https://github.com/mitmproxy/mitmproxy/pull/7704), @lups2000, @mhils)
+- Fix raw response export incorrectly zeroing non-zero `Content-Length` header for HEAD requests.
+  ([#7701](https://github.com/mitmproxy/mitmproxy/pull/7701), @sujaldev)
+- Fix concurrent mitmweb instances overwrite each other's auth cookie.
+  ([#7690](https://github.com/mitmproxy/mitmproxy/pull/7690), @turboOrange)
+
+## 06 May 2025: mitmproxy 12.0.1
+
+- Fix a crash when editing raw messages bodies in mitmproxy.
+  ([#7697](https://github.com/mitmproxy/mitmproxy/pull/7697), @mhils)
+- Added an option to pass the web token as `Authentication: Bearer ...` header
+  ([#7681](https://github.com/mitmproxy/mitmproxy/pull/7681), @gschaer)
+- In DNS proxy mode, user-provided addons now trigger before DNS resolution has taken place.
+  ([#7685](https://github.com/mitmproxy/mitmproxy/pull/7685), @Florigolo)
+
+## 29 April 2025: mitmproxy 12.0.0
+
 ### New Contentview System ([#7623](https://github.com/mitmproxy/mitmproxy/pull/7623), @mhils)
 
 - Contentviews can now be interactive and re-encode prettified data.
@@ -58,6 +94,8 @@
   ([#7652](https://github.com/mitmproxy/mitmproxy/pull/7652), @lups2000)
 - `mitmproxy.dns.Message` has been renamed to `mitmproxy.dns.DNSMessage`
   ([#7670](https://github.com/mitmproxy/mitmproxy/pull/7670), @mhils)
+- Added support for selecting multiple flows in mitmweb using Ctrl+Click and Shift+Click. Multi-selection is now supported for deleting, duplicating, marking, reverting, replaying ,resuming, and aborting flows.
+  ([#7319](https://github.com/mitmproxy/mitmproxy/pull/7319), @lups2000, @mhils)
 
 [tree-sitter]: https://tree-sitter.github.io/tree-sitter/
 

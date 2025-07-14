@@ -55,39 +55,41 @@ class WebMaster(master.Master):
         self.proxyserver.servers.changed.connect(self._sig_servers_changed)
 
     def _sig_view_add(self, flow: flow.Flow) -> None:
-        app.ClientConnection.broadcast(
-            resource="flows", cmd="add", data=app.flow_to_json(flow)
-        )
+        app.ClientConnection.broadcast_flow("flows/add", flow)
 
     def _sig_view_update(self, flow: flow.Flow) -> None:
-        app.ClientConnection.broadcast(
-            resource="flows", cmd="update", data=app.flow_to_json(flow)
-        )
+        app.ClientConnection.broadcast_flow("flows/update", flow)
 
     def _sig_view_remove(self, flow: flow.Flow, index: int) -> None:
-        app.ClientConnection.broadcast(resource="flows", cmd="remove", data=flow.id)
+        app.ClientConnection.broadcast(
+            type="flows/remove",
+            payload=flow.id,
+        )
 
     def _sig_view_refresh(self) -> None:
-        app.ClientConnection.broadcast(resource="flows", cmd="reset")
+        app.ClientConnection.broadcast_flow_reset()
 
     def _sig_events_add(self, entry: log.LogEntry) -> None:
         app.ClientConnection.broadcast(
-            resource="events", cmd="add", data=app.logentry_to_json(entry)
+            type="events/add",
+            payload=app.logentry_to_json(entry),
         )
 
     def _sig_events_refresh(self) -> None:
-        app.ClientConnection.broadcast(resource="events", cmd="reset")
+        app.ClientConnection.broadcast(
+            type="events/reset",
+        )
 
     def _sig_options_update(self, updated: set[str]) -> None:
         options_dict = optmanager.dump_dicts(self.options, updated)
         app.ClientConnection.broadcast(
-            resource="options", cmd="update", data=options_dict
+            type="options/update",
+            payload=options_dict,
         )
 
     def _sig_servers_changed(self) -> None:
         app.ClientConnection.broadcast(
-            resource="state",
-            cmd="update",
+            type="state/update",
             payload={
                 "servers": {
                     s.mode.full_spec: s.to_json() for s in self.proxyserver.servers

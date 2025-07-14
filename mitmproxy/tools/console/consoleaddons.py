@@ -494,7 +494,7 @@ class ConsoleAddon:
         elif flow_part == "response-headers":
             self.master.switch_view("edit_focus_response_headers")
         elif m := re.match(
-            r"(?P<message>(request|response)-body|(tcp|udp|websocket)-message)( \((?P<contentview>.+)\))?",
+            r"(?P<message>(request|response)-body|(tcp|udp|websocket)-message) \((?P<contentview>.+)\)",
             flow_part,
         ):
             match m["message"]:
@@ -638,7 +638,7 @@ class ConsoleAddon:
             raise exceptions.CommandError("Not viewing a flow.")
         idx = fv.body.tab_offset
 
-        if mode.lower() not in contentviews.registry:
+        if mode.lower() not in self.flowview_mode_options():
             raise exceptions.CommandError("Invalid flowview mode.")
 
         try:
